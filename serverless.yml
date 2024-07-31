@@ -3,10 +3,17 @@ service: crud-services
 provider:
   name: aws
   runtime: nodejs20.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'dynamodb:*'
+          Resource: !GetAtt usersTable.Arn
   
 plugins:
   - serverless-esbuild
   - serverless-offline
+  - serverless-dynamodb
   
 custom:
   esbuild:
@@ -16,6 +23,14 @@ custom:
     watch:
       pattern: [ './index.ts', 'src/**/*.ts' ]
       ignore: [ '.serverless/**/*', '.build' ]
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
   
 functions:
   hello-world:
@@ -24,3 +39,32 @@ functions:
       - http:
           path: hello-world
           method: GET
+
+  find-user-id:
+    handler: src/functions/users/find-id.getUser
+    events:
+      - http:
+          path: users/{id}
+          method: GET
+  get-users:
+    handler: src/functions/users/get.getUsers
+    events:
+      - http:
+          path: users
+          method: GET
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1

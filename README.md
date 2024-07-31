@@ -35,3 +35,13 @@ Para el final tener como resultado una URL como esta:
 Listo con nuestro servicios *AWS Lambda*
 
 Ahora si queremos eliminar todos los recursos creados en AWS para poder desplegar nuestro servicio de Lambda, solo basta con ejecutar el siguiente comando `npm run remove:deploy:dev`
+
+
+
+### Utilizar DynamoDB.
+
+Es necesario probar en local nuestros llamados hacia la base de datos de *DynamoDB*, y esto es posible gracias a `serverless-dynamodb`. Pero antes es necesario instalar la base de datos de forma local.
+
+Solo basta con ejecutar el siguiente comando `npm run dynamodb:install` y colocar el plugin de *serverless-dynamodb* en el archivo .yml
+
+
