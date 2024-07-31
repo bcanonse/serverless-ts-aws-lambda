@@ -1,0 +1,26 @@
+service: crud-services
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+  
+custom:
+  esbuild:
+    minify: true
+    external:
+      - aws-sdk
+    watch:
+      pattern: [ './index.ts', 'src/**/*.ts' ]
+      ignore: [ '.serverless/**/*', '.build' ]
+  
+functions:
+  hello-world:
+    handler: src/functions/handler.handler 
+    events:
+      - http:
+          path: hello-world
+          method: GET

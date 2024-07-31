@@ -1,0 +1,36 @@
+{
+  "name": "course-serverless-ts",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .ts",
+    "prettier": "prettier --write \"src/**/**/*.ts\"",
+    "dynamodb:install": "sls dynamodb install",
+    "start:offline": "sls offline start --stage dev --reloadHandler",
+    "deploy:dev": "sls deploy --stage dev --verbose",
+    "remove:deploy:dev": "sls remove --verbose",
+    "smell:code": "npm run lint & npm run prettier"
+  },
+  "keywords": [],
+  "author": "Bryan Canon",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.142",
+    "@types/aws-sdk": "^2.7.0",
+    "@types/node": "^22.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "aws-sdk": "^2.1665.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.6.0",
+    "prettier": "^3.3.3",
+    "serverless-dynamodb": "^0.2.54",
+    "serverless-esbuild": "^1.52.1",
+    "serverless-offline": "^13.6.0",
+    "typescript": "^5.5.4"
+  }
+}
