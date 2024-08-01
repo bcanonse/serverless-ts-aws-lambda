@@ -101,10 +101,8 @@ export const deleteUser = async (id: string): Promise<ResponseCustom> => {
 
   try {
     const response = await dbclient.send(command)
-    console.log(response)
     return responseObject(200, response.Attributes)
   } catch (error) {
-    console.error(error)
     return responseObject(500, { message: 'Error to delete user not handler' })
   }
 }
