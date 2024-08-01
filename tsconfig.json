@@ -9,6 +9,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "skipLibCheck": true,
     "sourceMap": true,
@@ -16,5 +18,11 @@
     "types": ["node"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    ".serverless/**/*",
+    "_warmup/**/*",
+    ".vscode/**/*",
+    ".dynamodb"
+  ]
 }

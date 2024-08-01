@@ -10,7 +10,8 @@
     "start:offline": "sls offline start --stage dev --reloadHandler",
     "deploy:dev": "sls deploy --stage dev --verbose",
     "remove:deploy:dev": "sls remove --verbose",
-    "smell:code": "npm run lint & npm run prettier"
+    "precommit": "npm run lint & npm run prettier",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Bryan Canon",
@@ -28,8 +29,10 @@
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^6.6.0",
+    "husky": "^8.0.0",
     "prettier": "^3.3.3",
     "serverless-dynamodb": "^0.2.54",
     "serverless-esbuild": "^1.52.1",
@@ -38,5 +41,10 @@
   },
   "dependencies": {
     "uuid": "^10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
   }
 }
