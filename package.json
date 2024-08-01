@@ -20,6 +20,7 @@
     "@types/aws-lambda": "^8.10.142",
     "@types/aws-sdk": "^2.7.0",
     "@types/node": "^22.0.2",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "aws-sdk": "^2.1665.0",
     "eslint": "^8.57.0",
@@ -34,5 +35,8 @@
     "serverless-esbuild": "^1.52.1",
     "serverless-offline": "^13.6.0",
     "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "uuid": "^10.0.0"
   }
 }

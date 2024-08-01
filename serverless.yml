@@ -9,20 +9,20 @@ provider:
         - Effect: Allow
           Action: 'dynamodb:*'
           Resource: !GetAtt usersTable.Arn
-  
+
 plugins:
   - serverless-esbuild
   - serverless-offline
   - serverless-dynamodb
-  
+
 custom:
   esbuild:
     minify: true
     external:
       - aws-sdk
     watch:
-      pattern: [ './index.ts', 'src/**/*.ts' ]
-      ignore: [ '.serverless/**/*', '.build' ]
+      pattern: ['./index.ts', 'src/**/*.ts']
+      ignore: ['.serverless/**/*', '.build']
   dynamodb:
     # If you only want to use DynamoDB Local in some stages, declare them here
     stages:
@@ -31,10 +31,10 @@ custom:
       port: 8000
       inMemory: true
       migrate: true
-  
+
 functions:
   hello-world:
-    handler: src/functions/handler.handler 
+    handler: src/functions/handler.handler
     events:
       - http:
           path: hello-world
@@ -52,6 +52,12 @@ functions:
       - http:
           path: users
           method: GET
+  create-users:
+    handler: src/functions/users/create.createUsers
+    events:
+      - http:
+          path: users
+          method: POST
 
 resources:
   Resources:
