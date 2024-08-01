@@ -1,5 +1,5 @@
 import { QueryCommand, ScanCommand } from '@aws-sdk/client-dynamodb'
-import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb'
+import { PutCommand, UpdateCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb'
 import { dbclient } from '../utils/dynamo-db'
 import responseObject from '../utils/response'
 import { type ResponseCustom } from '../types'
@@ -88,5 +88,23 @@ export const updateUser = async (
     return responseObject(200, response.Attributes)
   } catch (error) {
     return responseObject(500, { message: 'Error to update item not handler' })
+  }
+}
+
+export const deleteUser = async (id: string): Promise<ResponseCustom> => {
+  const command = new DeleteCommand({
+    TableName: 'users',
+    Key: {
+      pk: id
+    }
+  })
+
+  try {
+    const response = await dbclient.send(command)
+    console.log(response)
+    return responseObject(200, response.Attributes)
+  } catch (error) {
+    console.error(error)
+    return responseObject(500, { message: 'Error to delete user not handler' })
   }
 }

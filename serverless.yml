@@ -64,6 +64,12 @@ functions:
       - http:
           path: users/{id}
           method: PUT
+  delete-users:
+    handler: src/functions/users/delete.deleteUsers
+    events:
+      - http:
+          path: users/{id}
+          method: DELETE
 
 resources:
   Resources:
