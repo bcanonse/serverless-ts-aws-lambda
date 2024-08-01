@@ -58,6 +58,12 @@ functions:
       - http:
           path: users
           method: POST
+  update-users:
+    handler: src/functions/users/update.updateUsers
+    events:
+      - http:
+          path: users/{id}
+          method: PUT
 
 resources:
   Resources:

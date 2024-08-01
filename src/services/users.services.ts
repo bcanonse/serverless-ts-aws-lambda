@@ -1,5 +1,5 @@
 import { QueryCommand, ScanCommand } from '@aws-sdk/client-dynamodb'
-import { PutCommand } from '@aws-sdk/lib-dynamodb'
+import { PutCommand, UpdateCommand } from '@aws-sdk/lib-dynamodb'
 import { dbclient } from '../utils/dynamo-db'
 import responseObject from '../utils/response'
 import { type ResponseCustom } from '../types'
@@ -56,12 +56,37 @@ export const createUsers = async (data: unknown): Promise<ResponseCustom> => {
   })
 
   try {
-    const response = await dbclient.send(parms)
-
-    console.log(response)
+    await dbclient.send(parms)
 
     return responseObject(201, { id })
   } catch (error) {
     return responseObject(500, { message: 'Error of create item not handler' })
+  }
+}
+
+export const updateUser = async (
+  id: string,
+  data: unknown
+): Promise<ResponseCustom> => {
+  const parms = new UpdateCommand({
+    TableName: 'users',
+    Key: {
+      pk: id
+    },
+    UpdateExpression: 'set #name = :name, #phone = :phone',
+    ExpressionAttributeValues: {
+      ':name': data.name,
+      ':phone': data.phone
+    },
+    ExpressionAttributeNames: { '#name': 'name', '#phone': 'phone' },
+    ReturnValues: 'ALL_NEW'
+  })
+
+  try {
+    const response = await dbclient.send(parms)
+
+    return responseObject(200, response.Attributes)
+  } catch (error) {
+    return responseObject(500, { message: 'Error to update item not handler' })
   }
 }
