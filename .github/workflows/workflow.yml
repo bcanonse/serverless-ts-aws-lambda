@@ -46,12 +46,10 @@ jobs:
         env:
           cache-name: cache-node-modules
         with:
-          path: node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-node-
 
       - if: ${{ steps.cached-npm-dependencies.outputs.cache-hit != 'true' }}
         name: NPM - Install dependencies
