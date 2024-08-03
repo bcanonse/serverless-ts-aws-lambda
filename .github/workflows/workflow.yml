@@ -40,6 +40,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2.0.0
 
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
       - name: NPM - Load cached venv
         id: cached-npm-dependencies
         uses: actions/cache@v3
