@@ -15,6 +15,12 @@ plugins:
   - serverless-offline
   - serverless-dynamodb
 
+package:
+  exclude:
+    - .env/**
+    - node_modules/**
+    - .github/**
+
 custom:
   esbuild:
     minify: true

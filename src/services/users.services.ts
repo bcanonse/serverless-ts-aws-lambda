@@ -43,7 +43,7 @@ export const getAll = async (): Promise<ResponseCustom> => {
 
     return responseObject(200, items)
   } catch (error) {
-    return responseObject(500, { message: 'Error not handler' })
+    return responseObject(500, { message: 'Error to get users not handler' })
   }
 }
 
