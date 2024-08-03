@@ -56,8 +56,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - if: ${{ steps.cached-npm-dependencies.outputs.cache-hit != 'true' }}
-        name: NPM - Install dependencies
+      #- if: ${{ steps.cached-npm-dependencies.outputs.cache-hit != 'true' }}
+      - name: NPM - Install dependencies
         continue-on-error: true
         run: 'npm install'
 
