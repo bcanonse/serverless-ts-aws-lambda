@@ -40,15 +40,25 @@ jobs:
     steps:
       - uses: actions/checkout@v2.0.0
 
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
       - name: NPM - Load cached venv
         id: cached-npm-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
         with:
-          path: node_modules
-          key: npm-${{ runner.os }}-${{ hashFiles('**/package.json') }}
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
+      #- if: ${{ steps.cached-npm-dependencies.outputs.cache-hit != 'true' }}
       - name: NPM - Install dependencies
-        if: steps.cached-npm-dependencies.outputs.cache-hit != 'true'
+        continue-on-error: true
         run: 'npm install'
 
       - name: Deploy using sls
